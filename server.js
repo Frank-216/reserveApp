@@ -30,7 +30,25 @@ app.get('/reserve', function(req, res){
 app.get('/table', function(req, res){
 	res.sendFile(path.join(__dirname, 'table.html'));
 })
+app.get('/api/tables', function(req, res){
 
+});
+app.get('/api/waitlist',function(req, res){
+
+});
+
+// Create reservation - takes in JSON input
+app.post('/api/new', function(req, res){
+
+	var newcharacter = req.body;
+	newcharacter.routeName = newcharacter.name.replace(/\s+/g, '').toLowerCase()
+
+	console.log(newcharacter);
+
+	characters.push(newcharacter);
+
+	res.json(newcharacter);
+})
 
 // Starts the server to begin listening 
 // =============================================================
