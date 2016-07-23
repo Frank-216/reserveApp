@@ -10,14 +10,22 @@ var app = express();
 var PORT = 3000;
 
 // Sets up the Express app to handle data parsing 
+// =============================================================
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.text());
 app.use(bodyParser.json({type:'application/vnd.api+json'}));
 
-// Routes
-// =============================================================
-
+// create arrays to hold data 
+var reservation = [
+	{
+		customerName: "eli",
+		phoneNumber: 888888888,
+		customerEmail: "eli@fakemail.com",
+		customerID: "BlindRanger",
+	}
+];
+var waitlist = [];
 // Basic route that sends the user first to the AJAX Page
 app.get('/', function(req, res){
 	res.sendFile(path.join(__dirname, 'index.html'));
@@ -40,14 +48,21 @@ app.get('/api/waitlist',function(req, res){
 // Create reservation - takes in JSON input
 app.post('/api/new', function(req, res){
 
-	var newcharacter = req.body;
-	newcharacter.routeName = newcharacter.name.replace(/\s+/g, '').toLowerCase()
+	var newReservation= req.body;
+	newReservation.routeName = newReservation.customerName.replace(/\s+/g, '').toLowerCase()
 
-	console.log(newcharacter);
+	console.log(newReservation);
+	if(reservation.length < 5){
+			reservation.push(newReservation);
+			console.log("reservation")
+			console.log(reservation);
+				res.json(newReservation);
 
-	characters.push(newcharacter);
+	}else{
+		waitlist.push(newReservation);
+		res.json(newReservation);
 
-	res.json(newcharacter);
+	}
 })
 
 // Starts the server to begin listening 
