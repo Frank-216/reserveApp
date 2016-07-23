@@ -3,7 +3,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var path = require('path');
-
+var mysql = require('mysql')
 // Sets up the Express App
 // =============================================================
 var app = express();
@@ -30,9 +30,6 @@ app.get('/reserve', function(req, res){
 app.get('/table', function(req, res){
 	res.sendFile(path.join(__dirname, 'table.html'));
 })
-
-
-
 
 
 // Starts the server to begin listening 
